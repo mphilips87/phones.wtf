@@ -1,18 +1,43 @@
+// manifest.json
 {
+  "name": "PWTF",
+  "version": "4.0",
   "manifest_version": 3,
-  "name": "Phonesmart",
-  "version": "1.0",
-  "description": "Phonesmart Utility for chromium-based browsers.",
-  "permissions": ["activeTab", "scripting","tabs","webRequest","contextMenus"],
-  "background": {"service_worker": "background.js"},
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*/*"
-      ],
-      "js": [
-        "hello.js"
-      ]
-    }
-  ]
+  "action": {
+    "default_title": "PWTF Utility"
+  },
+  "permissions": ["activeTab", "scripting","tabs","webRequest"], 
+  "host_permissions": 
+  ["https://www.tracfone.com/*",
+  "https://rewards.tracfone.com/*",
+  "https://shop.tracfone.com/*",
+  "https://webapigateway.tracfone.com/*",
+  "https://webapi.tracfone.com/*",
+  "https://www.totalbyverizon.com/*",
+  "https://rewards.totalbyverizon.com/*",
+  "https://shop.totalbyverizon.com/*",
+  "https://webapi.totalbyverizon.com/*",
+  "https://www.straighttalk.com/*",
+  "https://rewards.straighttalk.com/*",
+  "https://shop.straighttalk.com/*",
+  "https://webapi.straighttalk.com/*",
+  "https://webapigateway.straighttalk.com/*",
+  "https://www.net10wireless.com/*",
+  "https://rewards.net10wireless.com/*",
+  "https://shop.net10wireless.com/*",
+  "https://webapi.net10wireless.com/*",
+  "https://webapigateway.net10wireless.com/*",
+  "https://www.simplemobile.com/*",
+  "https://rewards.simplemobile.com/*",
+  "https://shop.simplemobile.com/*",
+  "https://webapi.simplemobile.com/*",
+  "https://webapigateway.simplemobile.com/*",
+  "https://www.myfamilymobile.com/*",
+  "https://shop.myfamilymobile.com/*",
+  "https://webapi.myfamilymobile.com/*",
+  "https://webapigateway.myfamilymobile.com/*",
+  "https://rewards.myfamilymobile.com/*",
+  "https://lookup.phones.wtf/*"
+  ],
+  "background": {"service_worker": "background.js"}
 }
