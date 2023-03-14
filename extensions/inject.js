@@ -1,1 +1,0 @@
-document.body.innerHTML="<H1>HELLO WORLD!</H1>";
