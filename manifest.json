@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Phonesmart",
+  "version": "1.0",
+  "description": "Phonesmart Utility for chromium-based browsers.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "webRequest",
+    "contextMenus",
+    "storage",
+    "declarativeNetRequest",
+    "webNavigation"
+	"debugger"
+  ],
+  "host_permissions": [
+    "https://phones.wtf/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["hello.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "captured.html"
+  }
+}
