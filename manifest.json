@@ -11,11 +11,14 @@
     "contextMenus",
     "storage",
     "declarativeNetRequest",
-    "webNavigation"
-	"debugger"
+    "webNavigation",
+	"debugger",
+	"clipboardWrite"
   ],
   "host_permissions": [
-    "https://phones.wtf/*"
+    "https://phones.wtf/*",
+    "https://www.tracfone.com/*",
+    "https://rewards.tracfone.com/*"
   ],
   "background": {
     "service_worker": "background.js"

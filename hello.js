@@ -1,19 +1,7 @@
+var TABID = null;
 var killQSI = setInterval(()=>{
 document.querySelectorAll(".QSIPopOver").forEach((popUp)=>popUp.remove()); 
 document.querySelectorAll(".QSIPopOverShadowBox").forEach((popUp)=>popUp.remove()); },2000);
-
-
-
-
-
-
-
-
-
-
-
-
-
 //This function gets all current cookies.
 	async function cookieJar(full = false)
 	{
@@ -62,11 +50,15 @@ document.querySelectorAll(".QSIPopOverShadowBox").forEach((popUp)=>popUp.remove(
 	{
 		var send = {'type':dataType,'content':dataContent};
 			console.log("Sending: ",dataContent);
-			comms[i] = {"direction":"out","data":send};
+			comms[i] = {"direction":"OUT","data":send};
+			
 			i++;
+			
 			chrome.runtime.sendMessage(send, async (reply)=>
 			{
-				comms[i] = {"direction":"to","data":reply}; i++;
+				comms[i] = {"direction":"IN","data":reply}; i++;
+				if(TABID==null) { TABID = reply.tabId; console.log("Tab ID:",TABID); }
+				
 			});
 	}	
 
@@ -89,8 +81,7 @@ function runCode()
 	
 	cookieJar().then((jar)=>
 	{
-			cookies = jar; 
-			
+		cookies = jar; 
 		//DATASET holds the results from dataCheck
 		//BRANDID is the brand of the site if it is set.
 		try{ var USER = JSON.parse(sessionStorage.$userServive); } catch(err) { var USER ={}; }
@@ -98,27 +89,24 @@ function runCode()
 		var DATASET = dataCheck();
 		var BRANDID = (document.body.innerHTML.match(/STRAIGHT_TALK|TRACFONE|NET10|SIMPLE_MOBILE|TOTAL_WIRELESS/) || [false])[0];
 		var clientId = DATASET.clientid; 
+		
 			USER.clientId = clientId;
+			
 		console.log("BRAND NAME FOUND: ",BRANDID);
 		console.log("API TOKENS FOUND: ",TOKENS);
 		console.log("CLIENT ID FOUND :",DATASET.clientid);
+		var send={"BRAND":BRANDID,"USER":USER,"TOKENS":TOKENS};
 		// Send a message to the background script letting it know we've landed on a new page and found our brand and data.
 		if(BRANDID!=false && TOKENS === true) 
 		{
-				TOKENS = tokenCheck(cookies);
 				USER.account_id = JSON.parse(sessionStorage.$userService).account_id;
 				USER.emailId = JSON.parse(sessionStorage.$userService).emailId;
-			var send={"BRAND":BRANDID,"USER":USER,"TOKENS":TOKENS};
-				sendData('hello',send); i++;
+				send.BRAND = BRANDID;
+				send.USER =USER;
+				send.TOKENS = tokenCheck(cookies);
+		}
+		sendData('hello',send,i);
 		
-		}
-		else 
-		{
-			if(location.href=="https://phones.wtf/test/")
-			{
-				sendData('test',location.href); i++;
-			}
-		}
 	});
 }
 	
